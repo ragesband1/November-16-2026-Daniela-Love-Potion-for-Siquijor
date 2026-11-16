@@ -1,0 +1,1601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Daniela Love Potion for Siquijor</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --neon-pink: #ff2a85;
+      --neon-purple: #9d4edd;
+      --neon-cyan: #00f5d4;
+      --neon-gold: #ffd166;
+      --bg-deep: #0b0618;
+    }
+
+    * {
+      box-sizing: border-box;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: radial-gradient(circle at 20% 15%, #240b36 0%, #120724 45%, #070312 100%);
+      color: #f8f5ff;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .font-mystic {
+      font-family: 'Cinzel Decorative', cursive, serif;
+    }
+
+    /* Animated mystical background stars */
+    .mystic-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image:
+        radial-gradient(2px 2px at 15% 25%, rgba(255, 209, 102, 0.5), transparent),
+        radial-gradient(2px 2px at 75% 15%, rgba(0, 245, 212, 0.5), transparent),
+        radial-gradient(1.5px 1.5px at 45% 75%, rgba(255, 42, 133, 0.6), transparent),
+        radial-gradient(2px 2px at 85% 65%, rgba(157, 78, 221, 0.5), transparent);
+      background-size: 350px 350px;
+      animation: driftBg 40s linear infinite;
+    }
+
+    @keyframes driftBg {
+      from { background-position: 0 0; }
+      to { background-position: 350px 350px; }
+    }
+
+    .glass-panel {
+      background: rgba(24, 12, 46, 0.78);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 42, 133, 0.35);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.55), inset 0 0 20px rgba(157, 78, 221, 0.15);
+    }
+
+    .neon-border-pink {
+      border: 1.5px solid rgba(255, 42, 133, 0.7);
+      box-shadow: 0 0 18px rgba(255, 42, 133, 0.35);
+    }
+
+    .neon-border-cyan {
+      border: 1.5px solid rgba(0, 245, 212, 0.7);
+      box-shadow: 0 0 18px rgba(0, 245, 212, 0.3);
+    }
+
+    .neon-border-gold {
+      border: 1.5px solid rgba(255, 209, 102, 0.75);
+      box-shadow: 0 0 20px rgba(255, 209, 102, 0.35);
+    }
+
+    .btn-mystic {
+      background: linear-gradient(135deg, #ff2a85 0%, #9d4edd 100%);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      box-shadow: 0 6px 20px rgba(255, 42, 133, 0.45);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+    }
+
+    .btn-mystic:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 26px rgba(255, 42, 133, 0.65);
+      filter: brightness(1.08);
+    }
+
+    .btn-mystic:active:not(:disabled) {
+      transform: scale(0.97);
+    }
+
+    .ingredient-card {
+      background: linear-gradient(160deg, rgba(45, 20, 82, 0.9), rgba(22, 10, 44, 0.95));
+      border: 1.5px solid rgba(157, 78, 221, 0.45);
+      transition: all 0.14s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .ingredient-card:hover {
+      border-color: #00f5d4;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 245, 212, 0.28);
+    }
+
+    .ingredient-card:active {
+      transform: scale(0.94);
+    }
+
+    @keyframes shakeError {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-10px) rotate(-2deg); }
+      40% { transform: translateX(10px) rotate(2deg); }
+      60% { transform: translateX(-8px) rotate(-1deg); }
+      80% { transform: translateX(8px) rotate(1deg); }
+    }
+
+    .animate-shake {
+      animation: shakeError 0.42s ease-in-out;
+    }
+
+    @keyframes popSuccess {
+      0% { transform: scale(0.92); }
+      50% { transform: scale(1.06); }
+      100% { transform: scale(1); }
+    }
+
+    .animate-pop {
+      animation: popSuccess 0.35s ease-out;
+    }
+
+    /* Custom Scrollbar for Review List */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(15, 7, 30, 0.6);
+      border-radius: 999px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 42, 133, 0.55);
+      border-radius: 999px;
+    }
+  </style>
+</head>
+<body class="relative flex flex-col items-center justify-between min-h-screen p-2 sm:p-4">
+  <div class="mystic-bg"></div>
+
+  <!-- TOP HUD BAR -->
+  <header id="topHud" class="relative z-10 w-full max-w-5xl glass-panel rounded-2xl px-3 py-2.5 sm:px-5 sm:py-3 mb-3 flex flex-wrap items-center justify-between gap-2">
+    <div class="flex items-center gap-2.5">
+      <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-pink-500 to-purple-700 flex items-center justify-center text-xl shadow-lg border border-pink-300/30">
+        🧪
+      </div>
+      <div>
+        <h1 class="font-mystic text-sm sm:text-lg font-black tracking-wider bg-gradient-to-r from-pink-400 via-amber-200 to-cyan-300 bg-clip-text text-transparent leading-tight">
+          DANIELA LOVE POTION
+        </h1>
+        <p class="text-[11px] sm:text-xs text-purple-200/80 font-medium">Siquijor Mystical Polyamory Edition</p>
+      </div>
+    </div>
+
+    <!-- Stats Pills -->
+    <div class="flex flex-wrap items-center gap-2 sm:gap-3 text-xs sm:text-sm font-bold">
+      <div id="hudLives" class="px-3 py-1.5 rounded-xl bg-rose-950/80 border border-rose-500/40 text-rose-200 flex items-center gap-1.5" title="Remaining Lives">
+        <span>❤️</span>
+        <span id="livesText">7</span>
+      </div>
+
+      <div id="hudStage" class="px-3 py-1.5 rounded-xl bg-purple-950/80 border border-purple-400/40 text-purple-200 flex items-center gap-1.5">
+        <span>✨</span>
+        <span id="stageBadgeText">Menu</span>
+      </div>
+
+      <div id="hudScore" class="px-3 py-1.5 rounded-xl bg-amber-950/80 border border-amber-400/40 text-amber-200 flex items-center gap-1.5">
+        <span>💞</span>
+        <span id="partnersCountText">0</span>
+        <span class="hidden sm:inline text-amber-300/75 font-normal">Consensual Matches</span>
+      </div>
+
+      <!-- Audio & Voice Toggle -->
+      <button id="toggleAudioBtn" type="button" class="p-2 rounded-xl bg-indigo-950/90 border border-indigo-400/40 hover:border-cyan-400 text-cyan-300 transition" title="Toggle Sound & Voice">
+        🔊
+      </button>
+
+      <!-- Return Home Button -->
+      <button id="homeBtn" type="button" class="px-2.5 py-1.5 rounded-xl bg-slate-900/90 border border-slate-500/40 hover:border-pink-400 text-slate-200 text-xs transition">
+        Menu
+      </button>
+    </div>
+  </header>
+
+  <!-- FLOATING TOAST / FEEDBACK BANNER -->
+  <div id="toastBanner" class="fixed top-20 left-1/2 -translate-x-1/2 z-50 pointer-events-none opacity-0 transition-all duration-300 transform -translate-y-2">
+    <div id="toastInner" class="px-5 py-2.5 rounded-2xl font-bold text-sm sm:text-base shadow-2xl border backdrop-blur-md text-center">
+      Ready!
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="relative z-10 w-full max-w-5xl flex-1 flex flex-col justify-center">
+
+    <!-- ==================== SCREEN 0: MAIN MENU ==================== -->
+    <section id="screenMenu" class="glass-panel rounded-3xl p-5 sm:p-8 text-center neon-border-pink">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-pink-500/20 border border-pink-400/40 text-pink-200 text-xs font-bold mb-3">
+        <span>🌙 Isla del Fuego • 100% Consensual Polyamory Magic</span>
+      </div>
+
+      <h2 class="font-mystic text-2xl sm:text-4xl md:text-5xl font-black text-white mb-3 leading-tight">
+        Daniela Love Potion <br class="hidden sm:inline" />
+        <span class="bg-gradient-to-r from-pink-400 via-amber-300 to-cyan-300 bg-clip-text text-transparent">for Siquijor</span>
+      </h2>
+
+      <p class="text-purple-100/85 text-sm sm:text-base max-w-2xl mx-auto mb-6 leading-relaxed">
+        Timplahin ang tamang <strong class="text-pink-300">Gayuma Potion</strong> sa loob ng ilang segundo!
+        Mula <strong class="text-amber-300">Level 1 hanggang Level 100</strong>, bawat level ay may <strong>1 hanggang 100 unique single women</strong> na may sariling pangalan (hindi nauulit!) at may <strong>full consent</strong> para sa masayang polyamory relationship.
+        Pagkatapos ng Level 100, sasabak ka sa <strong class="text-cyan-300">Polyamory vs. Monogamy Country Blitz</strong>!
+      </p>
+
+      <!-- Game Mode Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto mb-6 text-left">
+        <div class="rounded-2xl p-4 bg-purple-950/70 border border-pink-500/40 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="text-xs font-extrabold uppercase tracking-wider text-pink-400">Stage 1 • Main Quest</span>
+              <span class="text-xs px-2 py-0.5 rounded-full bg-pink-500/20 text-pink-200 font-bold">Levels 1–100</span>
+            </div>
+            <h3 class="text-lg font-extrabold text-white mb-1">🧪 Siquijor Gayuma Bottle (1–100)</h3>
+            <p class="text-xs sm:text-sm text-purple-200/80 mb-3">
+              Level 1 = 1 single woman, Level 2 = 2 women... hanggang Level 100 = 100 women! Bawat isa ay may unique name. Mabilisang pindot ng sangkap bago maubos ang segundo, o <span class="text-rose-400 font-bold">-1 Life</span>!
+            </p>
+          </div>
+          <button id="startStage1Btn" type="button" class="btn-mystic w-full py-3 rounded-xl font-extrabold text-white text-sm sm:text-base cursor-pointer">
+            ▶ Start Level 1 (Full 1–100 Journey)
+          </button>
+        </div>
+
+        <div class="rounded-2xl p-4 bg-indigo-950/70 border border-cyan-400/40 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="text-xs font-extrabold uppercase tracking-wider text-cyan-300">Stage 2 • Bonus / Next Game</span>
+              <span class="text-xs px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-200 font-bold">Review + Blitz</span>
+            </div>
+            <h3 class="text-lg font-extrabold text-white mb-1">🌍 Polyamory vs. Monogamy Countries</h3>
+            <p class="text-xs sm:text-sm text-purple-200/80 mb-3">
+              <strong>Review muna</strong> ng mga bansang pwede ang polyamory vs. monogamy only! Pagkatapos, mabilisang sagot sa loob ng ilang segundo. <span class="text-amber-300 font-bold">Huwag gayumahin ang monogamy</span> (iwas Ex vs. Third Party!).
+            </p>
+          </div>
+          <button id="jumpStage2Btn" type="button" class="w-full py-3 rounded-xl font-extrabold text-slate-950 bg-gradient-to-r from-cyan-300 to-teal-300 hover:brightness-110 transition text-sm sm:text-base shadow-lg cursor-pointer">
+            🌍 Open Stage 2: Country Review & Blitz
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Level Jump for Testing / Practice -->
+      <div class="max-w-xl mx-auto pt-3 border-t border-purple-500/25 flex flex-wrap items-center justify-center gap-2 text-xs text-purple-200/80">
+        <span>Quick Level Jump (1–100):</span>
+        <input id="quickLevelInput" type="number" min="1" max="100" value="1" class="w-20 px-2.5 py-1.5 rounded-lg bg-purple-950 border border-purple-400/40 text-white font-bold text-center focus:outline-none focus:border-pink-400" />
+        <button id="quickLevelGoBtn" type="button" class="px-3 py-1.5 rounded-lg bg-purple-800 hover:bg-purple-700 text-white font-bold border border-purple-400/30 transition cursor-pointer">
+          Jump to Level
+        </button>
+      </div>
+    </section>
+
+    <!-- ==================== SCREEN 1: STAGE 1 (POTION BREWING LEVELS 1-100) ==================== -->
+    <section id="screenStage1" class="hidden glass-panel rounded-3xl p-4 sm:p-6 neon-border-pink">
+      <!-- Top Level Progress & Timer Row -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 mb-4 border-b border-purple-400/25">
+        <div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <span id="s1LevelBadge" class="px-3 py-1 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 text-white font-black text-sm sm:text-base shadow">
+              LEVEL 1 / 100
+            </span>
+            <span id="s1TargetCounter" class="px-3 py-1 rounded-xl bg-cyan-950/90 border border-cyan-400/40 text-cyan-200 font-bold text-xs sm:text-sm">
+              Single #1 of 1 in this Level
+            </span>
+          </div>
+          <!-- Level Progress Bar -->
+          <div class="w-full sm:w-72 h-2 bg-purple-950 rounded-full overflow-hidden mt-2 border border-purple-500/30">
+            <div id="s1LevelProgressBar" class="h-full bg-gradient-to-r from-pink-500 via-amber-300 to-cyan-400 transition-all duration-300" style="width: 1%;"></div>
+          </div>
+        </div>
+
+        <!-- Countdown Timer Box -->
+        <div class="flex items-center gap-3 self-end sm:self-center">
+          <div class="text-right">
+            <div class="text-[11px] uppercase tracking-wider text-purple-300 font-bold">Time Left</div>
+            <div id="s1TimerText" class="text-2xl sm:text-3xl font-black text-amber-300 tabular-nums leading-none">
+              12.0s
+            </div>
+          </div>
+          <div class="w-24 sm:w-32 h-3.5 bg-slate-900 rounded-full overflow-hidden border border-amber-400/40 p-0.5">
+            <div id="s1TimerBar" class="h-full rounded-full bg-gradient-to-r from-emerald-400 via-amber-300 to-rose-500 transition-all duration-100" style="width: 100%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Gameplay Grid: Left = Target Card & 2D Potion Bottle Canvas | Right = Formula & Ingredients -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
+
+        <!-- LEFT COLUMN (5 cols): Target Profile + 2D Potion Bottle Canvas -->
+        <div class="lg:col-span-5 flex flex-col gap-3">
+          <!-- Target Woman Card -->
+          <div id="targetCard" class="rounded-2xl p-3.5 bg-gradient-to-br from-pink-950/80 via-purple-950/80 to-indigo-950/80 border border-pink-400/45 shadow-lg">
+            <div class="flex items-center justify-between gap-2 mb-1">
+              <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-[11px] font-extrabold">
+                ✅ Consensual Polyamory Single
+              </span>
+              <span id="uniqueNameBadge" class="text-[11px] text-pink-300/80 font-semibold">Unique #1</span>
+            </div>
+
+            <div class="flex items-center gap-3 mt-2">
+              <div id="targetAvatar" class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-pink-500 to-amber-400 flex items-center justify-center text-3xl shadow-md shrink-0 border border-white/30">
+                💃
+              </div>
+              <div class="min-w-0">
+                <h3 id="targetNameText" class="text-lg sm:text-xl font-black text-white truncate">
+                  Althea Mae Reyes
+                </h3>
+                <p id="targetBioText" class="text-xs text-purple-200/85 line-clamp-2">
+                  Open-hearted traveler in Siquijor • Ready for consensual polyamory!
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2D Animated Potion Bottle Canvas Container -->
+          <div id="bottleContainer" class="flex-1 rounded-2xl bg-slate-950/75 border border-purple-400/35 p-3 flex flex-col items-center justify-center relative overflow-hidden min-h-[230px]">
+            <div class="absolute top-2.5 left-3 text-[11px] font-bold uppercase tracking-wider text-purple-300/80">
+              2D Siquijor Gayuma Flask
+            </div>
+            <div id="bottleStatusPill" class="absolute top-2.5 right-3 px-2.5 py-0.5 rounded-full bg-purple-900/90 border border-purple-400/40 text-[11px] font-bold text-cyan-300">
+              0 / 3 Sangkap
+            </div>
+
+            <canvas id="potionCanvas" class="w-full max-w-[240px] h-[200px] block"></canvas>
+
+            <p class="text-[11px] text-center text-purple-200/75 mt-1">
+              Ilagay ang mga sangkap sa <strong>tamang pagkakasunod-sunod</strong>!
+            </p>
+          </div>
+        </div>
+
+        <!-- RIGHT COLUMN (7 cols): Required Formula Sequence + Ingredient Buttons -->
+        <div class="lg:col-span-7 flex flex-col justify-between gap-3">
+          <!-- Formula Recipe Box -->
+          <div class="rounded-2xl p-3.5 sm:p-4 bg-purple-950/75 border border-amber-400/45">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-amber-300 flex items-center gap-1.5">
+                📜 Tamang Formula ng Potion (Sunod-sunod):
+              </span>
+              <span class="text-[11px] text-purple-300">Keys 1–8 supported</span>
+            </div>
+
+            <!-- Sequence Slots -->
+            <div id="formulaSlots" class="flex flex-wrap items-center gap-2 min-h-[54px]">
+              <!-- Dynamically populated formula steps -->
+            </div>
+          </div>
+
+          <!-- 8 Siquijor Ingredients Grid -->
+          <div class="rounded-2xl p-3.5 sm:p-4 bg-slate-950/70 border border-purple-400/35 flex-1 flex flex-col justify-between">
+            <div class="flex items-center justify-between mb-2.5">
+              <span class="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-cyan-300">
+                🌿 Pindutin ang Susunod na Sangkap:
+              </span>
+              <span class="text-[11px] text-rose-300 font-semibold">Mali o Late = -1 Life</span>
+            </div>
+
+            <div id="ingredientsGrid" class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+              <!-- Dynamically rendered 8 ingredient buttons -->
+            </div>
+
+            <!-- Recent Consensual Polyamory Roster Ticker -->
+            <div class="mt-3 pt-2.5 border-t border-purple-500/25 flex items-center justify-between gap-2 text-xs">
+              <span class="text-pink-300 font-bold shrink-0">💞 Latest Polyamory Partner:</span>
+              <span id="latestPartnerTicker" class="text-purple-100 truncate font-medium">Wala pa — simulan ang unang gayuma!</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SCREEN 1B: LEVEL CLEAR CELEBRATION MODAL / PANEL ==================== -->
+    <section id="screenLevelClear" class="hidden glass-panel rounded-3xl p-6 sm:p-8 text-center neon-border-gold max-w-2xl mx-auto">
+      <div class="text-5xl mb-2">✨🧪💖</div>
+      <h2 id="levelClearTitle" class="font-mystic text-2xl sm:text-3xl font-black text-amber-300 mb-2">
+        LEVEL 1 COMPLETE!
+      </h2>
+      <p id="levelClearDesc" class="text-purple-100 text-sm sm:text-base mb-4">
+        Matagumpay mong nagayuma nang may full consent ang lahat ng targets sa level na ito!
+      </p>
+
+      <div id="levelClearRosterBox" class="rounded-2xl bg-purple-950/80 border border-pink-400/35 p-3 mb-5 max-h-40 overflow-y-auto text-left">
+        <div class="text-xs font-bold uppercase tracking-wider text-pink-300 mb-1.5">Mga Bagong Consensual Partners sa Level na ito:</div>
+        <div id="levelClearNamesList" class="flex flex-wrap gap-1.5 text-xs"></div>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-center gap-3">
+        <button id="nextLevelBtn" type="button" class="btn-mystic px-6 py-3.5 rounded-2xl font-extrabold text-white text-base cursor-pointer">
+          Next Level ➔
+        </button>
+      </div>
+    </section>
+
+    <!-- ==================== SCREEN 1C: LEVEL 100 GRAND CONGRATULATIONS ==================== -->
+    <section id="screenGrandCongrats" class="hidden glass-panel rounded-3xl p-6 sm:p-10 text-center neon-border-gold max-w-3xl mx-auto">
+      <div class="text-6xl mb-3">👑🏆💞</div>
+      <div class="inline-block px-4 py-1 rounded-full bg-amber-400/20 border border-amber-300/50 text-amber-200 text-xs font-black uppercase tracking-widest mb-2">
+        Levels 1 – 100 Conquered!
+      </div>
+      <h2 class="font-mystic text-3xl sm:text-5xl font-black bg-gradient-to-r from-amber-200 via-pink-300 to-cyan-300 bg-clip-text text-transparent mb-3">
+        CONGRATULATIONS!
+      </h2>
+      <p class="text-purple-100 text-sm sm:text-lg max-w-xl mx-auto mb-6 leading-relaxed">
+        Nagawa mo ang lahat ng <strong class="text-amber-300">100 Levels</strong> ng Daniela Love Potion for Siquijor!
+        Nabuo mo ang isang masaya, tapat, at <strong class="text-pink-300">100% Consensual Polyamory Family</strong> na may <span id="grandTotalPartners" class="font-black text-cyan-300">5,050</span> unique partners!
+      </p>
+
+      <div class="p-4 rounded-2xl bg-indigo-950/85 border border-cyan-400/45 max-w-xl mx-auto mb-6">
+        <h3 class="text-base sm:text-lg font-extrabold text-cyan-300 mb-1">🌍 Handa ka na ba sa Next Game?</h3>
+        <p class="text-xs sm:text-sm text-purple-200/85">
+          Sa susunod na hamon, magre-review muna tayo ng mga bansa kung saan pwede ang <strong>Polyamory / Multi-Partner</strong> vs. <strong>Monogamy Only</strong>. Tandaan: Huwag gayumahin ang monogamy dahil Ex vs. Third Party drama 'yan!
+        </p>
+      </div>
+
+      <button id="goToStage2FromCongratsBtn" type="button" class="btn-mystic px-8 py-4 rounded-2xl font-black text-white text-base sm:text-lg cursor-pointer">
+        🌍 Proceed to Stage 2: Country Review & Blitz ➔
+      </button>
+    </section>
+
+    <!-- ==================== SCREEN 2A: COUNTRY STUDY / REVIEW MUNA ==================== -->
+    <section id="screenStage2Review" class="hidden glass-panel rounded-3xl p-4 sm:p-7 neon-border-cyan">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 mb-4 border-b border-cyan-400/25">
+        <div>
+          <span class="inline-block px-3 py-0.5 rounded-full bg-cyan-500/20 border border-cyan-400/40 text-cyan-200 text-xs font-extrabold uppercase tracking-wider mb-1">
+            Stage 2 • Step 1: Review Muna!
+          </span>
+          <h2 class="font-mystic text-xl sm:text-3xl font-black text-white">
+            Polyamory vs. Monogamy Countries
+          </h2>
+          <p class="text-xs sm:text-sm text-purple-200/85 mt-1">
+            Basahin at tandaan muna ang mga bansa sa ibaba bago magsimula ang <strong>mabilisang timed quiz (5 seconds per country)</strong>!
+          </p>
+        </div>
+
+        <button id="startCountryBlitzBtn" type="button" class="btn-mystic px-5 py-3.5 rounded-2xl font-black text-white text-sm sm:text-base shrink-0 cursor-pointer">
+          ⚡ Tapos na Mag-Review! Start Timed Blitz ➔
+        </button>
+      </div>
+
+      <!-- Two Columns Study Guide -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[58vh] overflow-y-auto pr-1">
+        <!-- Column 1: Polyamory / Multi-Partner Allowed -->
+        <div class="rounded-2xl p-4 bg-emerald-950/55 border border-emerald-400/45">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-base sm:text-lg font-black text-emerald-300 flex items-center gap-2">
+              <span>💚 PWEDE GAYUMAHIN</span>
+            </h3>
+            <span class="text-[11px] px-2.5 py-0.5 rounded-full bg-emerald-500/25 text-emerald-200 font-bold">
+              Polyamory / Multi-Partner
+            </span>
+          </div>
+          <p class="text-xs text-emerald-100/80 mb-3">
+            Mga bansang legal ang plural marriage / polygamy o malayang kinikilala ang consensual polyamory relationships:
+          </p>
+          <div id="reviewPolyList" class="space-y-2">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- Column 2: Monogamy Only (DO NOT CAST!) -->
+        <div class="rounded-2xl p-4 bg-rose-950/55 border border-rose-400/45">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-base sm:text-lg font-black text-rose-300 flex items-center gap-2">
+              <span>🚫 HUWAG GAYUMAHIN!</span>
+            </h3>
+            <span class="text-[11px] px-2.5 py-0.5 rounded-full bg-rose-500/25 text-rose-200 font-bold">
+              Monogamy Only (Ex vs 3rd Party)
+            </span>
+          </div>
+          <p class="text-xs text-rose-100/80 mb-3">
+            Mga bansang strictly <strong>Monogamy Only</strong> sa batas o kultura — kapag ginayuma mo, magiging <strong>Ex vs. Third Party</strong> drama at <span class="text-rose-300 font-bold">-1 Life</span>!
+          </p>
+          <div id="reviewMonoList" class="space-y-2">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SCREEN 2B: COUNTRY TIMED BLITZ QUIZ ==================== -->
+    <section id="screenStage2Quiz" class="hidden glass-panel rounded-3xl p-4 sm:p-7 neon-border-cyan max-w-3xl mx-auto w-full">
+      <div class="flex items-center justify-between gap-3 pb-3 mb-4 border-b border-cyan-400/25">
+        <div>
+          <span id="s2RoundBadge" class="px-3 py-1 rounded-xl bg-cyan-500/20 border border-cyan-400/40 text-cyan-200 font-black text-xs sm:text-sm">
+            COUNTRY 1 / 16
+          </span>
+          <span class="ml-2 text-xs text-purple-200/80 font-semibold">Mabilisang Desisyon!</span>
+        </div>
+
+        <!-- Country Timer -->
+        <div class="flex items-center gap-2.5">
+          <span id="s2TimerText" class="text-2xl sm:text-3xl font-black text-amber-300 tabular-nums">5.0s</span>
+          <div class="w-24 sm:w-32 h-3 bg-slate-900 rounded-full overflow-hidden border border-amber-400/40">
+            <div id="s2TimerBar" class="h-full bg-gradient-to-r from-cyan-400 via-amber-300 to-rose-500 transition-all duration-100" style="width: 100%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Country Card -->
+      <div id="countryCard" class="rounded-3xl p-6 sm:p-8 bg-gradient-to-b from-indigo-950/90 to-purple-950/90 border border-purple-400/40 text-center mb-5 shadow-xl">
+        <div id="countryFlag" class="text-6xl sm:text-7xl mb-3 drop-shadow-lg">🇦🇪</div>
+        <h3 id="countryName" class="font-mystic text-2xl sm:text-4xl font-black text-white mb-2">
+          United Arab Emirates
+        </h3>
+        <p id="countryRegion" class="text-xs sm:text-sm uppercase tracking-widest text-cyan-300 font-bold mb-3">
+          Middle East
+        </p>
+        <div class="inline-block px-4 py-1.5 rounded-xl bg-slate-950/70 border border-purple-400/30 text-xs sm:text-sm text-purple-200">
+          Tanong: Pwede bang gayumahin para sa <strong>Consensual Polyamory</strong> o <strong>Monogamy Only</strong> ito?
+        </div>
+      </div>
+
+      <!-- Two Fast Action Buttons -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+        <button id="btnCastPoly" type="button" class="py-4 px-5 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-500 hover:brightness-110 active:scale-95 text-white font-black text-base sm:text-lg shadow-lg border border-emerald-300/40 transition flex flex-col items-center justify-center cursor-pointer">
+          <span>🧪 GAYUMAHIN! (Polyamory)</span>
+          <span class="text-[11px] font-semibold text-emerald-100 mt-0.5">[Left Arrow ←] Multi-Partner Allowed</span>
+        </button>
+
+        <button id="btnRejectMono" type="button" class="py-4 px-5 rounded-2xl bg-gradient-to-r from-rose-600 to-pink-600 hover:brightness-110 active:scale-95 text-white font-black text-base sm:text-lg shadow-lg border border-rose-300/40 transition flex flex-col items-center justify-center cursor-pointer">
+          <span>🚫 HUWAG! (Monogamy Only)</span>
+          <span class="text-[11px] font-semibold text-rose-100 mt-0.5">[Right Arrow →] Iwas Ex vs. Third Party</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ==================== SCREEN 3: GAME OVER / ULTIMATE VICTORY ==================== -->
+    <section id="screenEndGame" class="hidden glass-panel rounded-3xl p-6 sm:p-10 text-center neon-border-pink max-w-2xl mx-auto">
+      <div id="endIcon" class="text-6xl mb-3">💔</div>
+      <h2 id="endTitle" class="font-mystic text-2xl sm:text-4xl font-black text-white mb-2">
+        NAUBOS ANG LIVES!
+      </h2>
+      <p id="endSubtitle" class="text-purple-100/90 text-sm sm:text-base mb-6 leading-relaxed">
+        Na-late ka o nagkamali sa sangkap / monogamy country!
+      </p>
+
+      <div class="grid grid-cols-2 gap-3 max-w-md mx-auto mb-6 text-left">
+        <div class="p-3.5 rounded-2xl bg-purple-950/80 border border-purple-400/30">
+          <div class="text-[11px] uppercase text-purple-300 font-bold">Highest Level</div>
+          <div id="endLevelStat" class="text-xl font-black text-amber-300">Level 1</div>
+        </div>
+        <div class="p-3.5 rounded-2xl bg-purple-950/80 border border-purple-400/30">
+          <div class="text-[11px] uppercase text-purple-300 font-bold">Consensual Matches</div>
+          <div id="endMatchesStat" class="text-xl font-black text-pink-300">0</div>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-center gap-3">
+        <button id="retryGameBtn" type="button" class="btn-mystic px-6 py-3.5 rounded-2xl font-extrabold text-white text-sm sm:text-base cursor-pointer">
+          🔄 Play Again (Fresh Unique Names)
+        </button>
+        <button id="endReviewBtn" type="button" class="px-5 py-3.5 rounded-2xl bg-cyan-500/20 border border-cyan-400/50 text-cyan-200 font-bold text-sm sm:text-base hover:bg-cyan-500/30 transition cursor-pointer">
+          🌍 Review & Play Country Blitz
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="relative z-10 w-full max-w-5xl text-center text-[11px] text-purple-300/60 mt-3 py-1">
+    Daniela Love Potion for Siquijor • 100% Consensual Polyamory & Ethical Relationships Arcade
+  </footer>
+
+  <script>
+    (function () {
+      "use strict";
+
+      /* =========================================================================
+         1. AUDIO & VOICE SYNTHESIS ENGINE (Web Audio API + SpeechSynthesis)
+      ========================================================================= */
+      let soundEnabled = true;
+      let audioCtx = null;
+
+      function ensureAudioCtx() {
+        if (!audioCtx) {
+          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+          if (AudioContextClass) {
+            audioCtx = new AudioContextClass();
+          }
+        }
+        if (audioCtx && audioCtx.state === "suspended") {
+          audioCtx.resume().catch(() => {});
+        }
+      }
+
+      function playTone(freq, type, duration, delay = 0, vol = 0.14) {
+        if (!soundEnabled) return;
+        try {
+          ensureAudioCtx();
+          if (!audioCtx) return;
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = type;
+          osc.frequency.setValueAtTime(freq, audioCtx.currentTime + delay);
+
+          gain.gain.setValueAtTime(0.001, audioCtx.currentTime + delay);
+          gain.gain.exponentialRampToValueAtTime(vol, audioCtx.currentTime + delay + 0.02);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + delay + duration);
+
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(audioCtx.currentTime + delay);
+          osc.stop(audioCtx.currentTime + delay + duration + 0.03);
+        } catch (e) {
+          // Ignore audio context restriction errors
+        }
+      }
+
+      const SFX = {
+        dropIngredient(stepIndex) {
+          const base = 420 + stepIndex * 95;
+          playTone(base, "sine", 0.16, 0, 0.16);
+          playTone(base * 1.5, "triangle", 0.14, 0.05, 0.1);
+        },
+        potionSuccess() {
+          playTone(523.25, "triangle", 0.18, 0, 0.18);
+          playTone(659.25, "triangle", 0.18, 0.08, 0.18);
+          playTone(783.99, "triangle", 0.22, 0.16, 0.2);
+          playTone(1046.5, "sine", 0.35, 0.24, 0.22);
+        },
+        levelComplete() {
+          const notes = [523.25, 659.25, 783.99, 1046.5, 1318.5];
+          notes.forEach((n, idx) => playTone(n, "triangle", 0.25, idx * 0.09, 0.2));
+        },
+        errorPenalty() {
+          playTone(190, "sawtooth", 0.22, 0, 0.2);
+          playTone(145, "sawtooth", 0.32, 0.14, 0.22);
+        }
+      };
+
+      function speakVoice(text) {
+        if (!soundEnabled || !("speechSynthesis" in window)) return;
+        try {
+          window.speechSynthesis.cancel();
+          const utter = new SpeechSynthesisUtterance(text);
+          utter.rate = 1.12;
+          utter.pitch = 1.15;
+          utter.volume = 0.85;
+          window.speechSynthesis.speak(utter);
+        } catch (e) {
+          // Safe fallback if speech is blocked
+        }
+      }
+
+      /* =========================================================================
+         2. NON-REPEATING FEMALE NAME GENERATOR (8,000+ Unique Combinations!)
+         Guarantees no repeated name from Level 1 to Level 100 (5,050 targets total)
+      ========================================================================= */
+      const FIRST_NAMES = [
+        "Althea", "Beatrice", "Camille", "Daniela", "Elena", "Francine", "Gabriella", "Hannah",
+        "Isabella", "Jasmine", "Katrina", "Larissa", "Mariel", "Natalie", "Olivia", "Pauline",
+        "Queenie", "Rosalinda", "Samantha", "Tricia", "Ursula", "Valerie", "Wendy", "Xandra",
+        "Ysabel", "Zaira", "Abigail", "Bianca", "Clarissa", "Denise", "Erica", "Fatima",
+        "Giselle", "Hazel", "Irene", "Janelle", "Kyla", "Lorraine", "Michelle", "Nicole",
+        "Odette", "Patricia", "Rafaela", "Sofia", "Therese", "Vanessa", "Winona", "Yvette",
+        "Arianne", "Bernadette", "Cheska", "Dianne", "Elaine", "Fiona", "Grace", "Heart",
+        "Ivy", "Jocelyn", "Kristine", "Liezel", "Marga", "Nadine", "Ophelia", "Precious",
+        "Roxanne", "Shaina", "Tanya", "Veronica", "Willa", "Zoe", "Amara", "Bituin",
+        "Celeste", "Dalisay", "Estrella", "Freya", "Hiraya", "Ilang", "Jolina", "Kareen",
+        "Liwayway", "Mayumi", "Noemi", "Perla", "Rhea", "Selena", "Tala", "Vina",
+        "Yna", "Zelma", "Annaliza", "Bettina", "Corazon", "Divina", "Esmeralda", "Felicity",
+        "Gemma", "Helga", "Ingrid", "Juliana"
+      ];
+
+      const LAST_NAMES = [
+        "Reyes", "Santos", "Cruz", "Bautista", "Ocampo", "Garcia", "Mendoza", "Torres",
+        "Tomas", "Andrada", "Castillo", "Flores", "Rivera", "Gomez", "Fernandez", "Lopez",
+        "Gonzales", "Perez", "Sanchez", "Ramirez", "Aquino", "Castro", "Delgado", "Morales",
+        "Ortiz", "Gutierrez", "Chavez", "Ramos", "Villanueva", "Navarro", "Salazar", "Alvarez",
+        "Mercado", "Miranda", "Soriano", "Valencia", "Pascual", "Santiago", "Velasco", "Aguilar",
+        "Corpuz", "De Leon", "Enriquez", "Evangelista", "Concepcion", "Marquez", "Padilla", "Rosales",
+        "Sison", "Tolentino", "Vergara", "Zamora", "Abad", "Alcantara", "Arellano", "Atienza",
+        "Balbuena", "Cabrera", "Dizon", "Espiritu", "Galvez", "Ilagan", "Jacinto", "Lacson",
+        "Magbanua", "Natividad", "Panganiban", "Quijano", "Regalado", "Salvador", "Taboada", "Uy",
+        "Villarreal", "Yulo", "Zobel", "Montemayor", "Buenaventura", "Legazpi", "Magsaysay", "Silang",
+        "Dimaculangan", "Macapagal", "Pangilinan", "Manalo", "Dalisay", "Lualhati", "Bituin", "Alonzo"
+      ];
+
+      const BIOS_AND_AVATARS = [
+        { avatar: "💃", bio: "Siquijor sunset dancer • Open to consensual polyamory!" },
+        { avatar: "🌺", bio: "Cambugahay Falls explorer • Excited for shared love & respect!" },
+        { avatar: "✨", bio: "Mystic healer & stargazer • Full consent & honest communication!" },
+        { avatar: "🦋", bio: "Free-spirited island artist • Ready for a loving polycule!" },
+        { avatar: "🌙", bio: "Moonlit beach poet • Believes in ethical, consensual polyamory!" },
+        { avatar: "🧜‍♀️", bio: "Salagdoong cliff diver • Happy to join Daniela's polyamory circle!" },
+        { avatar: "🌸", bio: "Botanical herbalist • Loves kind hearts & transparent relationships!" },
+        { avatar: "👑", bio: "Confident queen • Ready for joyful consensual polyamory!" }
+      ];
+
+      // Tracks every name used in the current run so NO name repeats from Level 1 to 100
+      const usedNamesSet = new Set();
+
+      function generateUniqueFemaleProfile() {
+        let fullName = "";
+        let attempts = 0;
+        while (attempts < 1000) {
+          const fn = FIRST_NAMES[Math.floor(Math.random() * FIRST_NAMES.length)];
+          const ln = LAST_NAMES[Math.floor(Math.random() * LAST_NAMES.length)];
+          // Add middle initial only if base combination is already used
+          if (attempts < 250) {
+            fullName = `${fn} ${ln}`;
+          } else {
+            const mid = String.fromCharCode(65 + (attempts % 26));
+            fullName = `${fn} ${mid}. ${ln}`;
+          }
+          if (!usedNamesSet.has(fullName)) {
+            usedNamesSet.add(fullName);
+            break;
+          }
+          attempts++;
+        }
+
+        const style = BIOS_AND_AVATARS[Math.floor(Math.random() * BIOS_AND_AVATARS.length)];
+        return {
+          name: fullName,
+          avatar: style.avatar,
+          bio: style.bio
+        };
+      }
+
+      /* =========================================================================
+         3. SIQUIJOR POTION INGREDIENTS DATA
+      ========================================================================= */
+      const INGREDIENTS = [
+        { id: "rose", name: "Gayuma Rose", icon: "🌹", color: "#ff2a85", key: "1" },
+        { id: "moon", name: "Siquijor Moon", icon: "🌙", color: "#00f5d4", key: "2" },
+        { id: "hibiscus", name: "Hibiscus Nectar", icon: "🌺", color: "#ff6b6b", key: "3" },
+        { id: "balete", name: "Balete Dew", icon: "🍃", color: "#2ec4b6", key: "4" },
+        { id: "honey", name: "Golden Honey", icon: "🍯", color: "#ffd166", key: "5" },
+        { id: "ginger", name: "Starlight Ginger", icon: "✨", color: "#f4a261", key: "6" },
+        { id: "ylang", name: "Ylang-Ylang Oil", icon: "🌼", color: "#e9c46a", key: "7" },
+        { id: "cacao", name: "Cacao Love Seed", icon: "🍫", color: "#c77dff", key: "8" }
+      ];
+
+      /* =========================================================================
+         4. STAGE 2 COUNTRIES DATASET (Polyamory/Multi-Partner vs Monogamy Only)
+      ========================================================================= */
+      const COUNTRIES_DATA = [
+        // Polyamory / Polygamy / Multi-Partner Allowed (isPoly: true)
+        { name: "United Arab Emirates", flag: "🇦🇪", region: "Middle East", isPoly: true, note: "Legally permits plural marriage (up to 4 wives) under family law." },
+        { name: "Saudi Arabia", flag: "🇸🇦", region: "Middle East", isPoly: true, note: "Plural marriage is legally recognized and practiced." },
+        { name: "South Africa", flag: "🇿🇦", region: "Southern Africa", isPoly: true, note: "Recognizes customary polygynous marriages under the Recognition of Customary Marriages Act." },
+        { name: "Kenya", flag: "🇰🇪", region: "East Africa", isPoly: true, note: "Marriage Act legally recognizes polygamous customary marriages." },
+        { name: "Indonesia", flag: "🇮🇩", region: "Southeast Asia", isPoly: true, note: "Permits polygamy under specific legal conditions and court approval." },
+        { name: "Malaysia", flag: "🇲🇾", region: "Southeast Asia", isPoly: true, note: "Permits plural marriage for Muslims under Syariah law with court consent." },
+        { name: "Morocco", flag: "🇲🇦", region: "North Africa", isPoly: true, note: "Permits plural marriage subject to strict judicial authorization." },
+        { name: "Senegal", flag: "🇸🇳", region: "West Africa", isPoly: true, note: "Couples legally choose monogamous or polygamous marriage options." },
+
+        // Monogamy Only Countries (isPoly: false - HUWAG GAYUMAHIN! Ex vs Third Party!)
+        { name: "Philippines", flag: "🇵🇭", region: "Southeast Asia", isPoly: false, note: "Strictly Monogamy under Family Code (bigamy is illegal; Ex vs. Third Party!)." },
+        { name: "Japan", flag: "🇯🇵", region: "East Asia", isPoly: false, note: "Strictly Monogamy only under the Civil Code." },
+        { name: "South Korea", flag: "🇰🇷", region: "East Asia", isPoly: false, note: "Strictly Monogamy only; plural marriage is prohibited." },
+        { name: "United States", flag: "🇺🇸", region: "North America", isPoly: false, note: "Civil marriage is strictly Monogamy across all 50 states." },
+        { name: "United Kingdom", flag: "🇬🇧", region: "Europe", isPoly: false, note: "Legally Monogamy only; bigamy is a criminal offense." },
+        { name: "France", flag: "🇫🇷", region: "Europe", isPoly: false, note: "Strictly Monogamy under the French Civil Code." },
+        { name: "Australia", flag: "🇦🇺", region: "Oceania", isPoly: false, note: "Strictly Monogamy under the Marriage Act 1961." },
+        { name: "Brazil", flag: "🇧🇷", region: "South America", isPoly: false, note: "Strictly Monogamy only under Brazilian civil law." }
+      ];
+
+      /* =========================================================================
+         5. GAME STATE
+      ========================================================================= */
+      const state = {
+        mode: "MENU", // MENU | STAGE1 | LEVEL_CLEAR | GRAND_CONGRATS | STAGE2_REVIEW | STAGE2_QUIZ | END
+        lives: 7,
+        maxLives: 10,
+        totalConsensualMatches: 0,
+
+        // Stage 1 variables
+        currentLevel: 1,         // 1 to 100
+        targetsInLevelTotal: 1,  // Equals currentLevel (Level N = N singles!)
+        targetsCompletedInLevel: 0,
+        currentTargetProfile: null,
+        levelNewPartners: [],
+        requiredFormula: [],
+        currentStepIndex: 0,
+        s1TimeMax: 10,
+        s1TimeRemaining: 10,
+        s1LastTick: 0,
+        s1AnimFrame: null,
+
+        // Stage 2 variables
+        quizQueue: [],
+        quizIndex: 0,
+        currentCountry: null,
+        s2TimeMax: 5.5,
+        s2TimeRemaining: 5.5,
+        s2LastTick: 0,
+        s2AnimFrame: null
+      };
+
+      /* =========================================================================
+         6. DOM REFERENCES
+      ========================================================================= */
+      const el = {
+        livesText: document.getElementById("livesText"),
+        stageBadgeText: document.getElementById("stageBadgeText"),
+        partnersCountText: document.getElementById("partnersCountText"),
+        toggleAudioBtn: document.getElementById("toggleAudioBtn"),
+        homeBtn: document.getElementById("homeBtn"),
+        toastBanner: document.getElementById("toastBanner"),
+        toastInner: document.getElementById("toastInner"),
+
+        // Screens
+        screenMenu: document.getElementById("screenMenu"),
+        screenStage1: document.getElementById("screenStage1"),
+        screenLevelClear: document.getElementById("screenLevelClear"),
+        screenGrandCongrats: document.getElementById("screenGrandCongrats"),
+        screenStage2Review: document.getElementById("screenStage2Review"),
+        screenStage2Quiz: document.getElementById("screenStage2Quiz"),
+        screenEndGame: document.getElementById("screenEndGame"),
+
+        // Stage 1 DOM
+        s1LevelBadge: document.getElementById("s1LevelBadge"),
+        s1TargetCounter: document.getElementById("s1TargetCounter"),
+        s1LevelProgressBar: document.getElementById("s1LevelProgressBar"),
+        s1TimerText: document.getElementById("s1TimerText"),
+        s1TimerBar: document.getElementById("s1TimerBar"),
+        targetCard: document.getElementById("targetCard"),
+        uniqueNameBadge: document.getElementById("uniqueNameBadge"),
+        targetAvatar: document.getElementById("targetAvatar"),
+        targetNameText: document.getElementById("targetNameText"),
+        targetBioText: document.getElementById("targetBioText"),
+        bottleContainer: document.getElementById("bottleContainer"),
+        bottleStatusPill: document.getElementById("bottleStatusPill"),
+        potionCanvas: document.getElementById("potionCanvas"),
+        formulaSlots: document.getElementById("formulaSlots"),
+        ingredientsGrid: document.getElementById("ingredientsGrid"),
+        latestPartnerTicker: document.getElementById("latestPartnerTicker"),
+
+        // Level Clear & Congrats
+        levelClearTitle: document.getElementById("levelClearTitle"),
+        levelClearDesc: document.getElementById("levelClearDesc"),
+        levelClearNamesList: document.getElementById("levelClearNamesList"),
+        nextLevelBtn: document.getElementById("nextLevelBtn"),
+        grandTotalPartners: document.getElementById("grandTotalPartners"),
+
+        // Stage 2 DOM
+        reviewPolyList: document.getElementById("reviewPolyList"),
+        reviewMonoList: document.getElementById("reviewMonoList"),
+        s2RoundBadge: document.getElementById("s2RoundBadge"),
+        s2TimerText: document.getElementById("s2TimerText"),
+        s2TimerBar: document.getElementById("s2TimerBar"),
+        countryCard: document.getElementById("countryCard"),
+        countryFlag: document.getElementById("countryFlag"),
+        countryName: document.getElementById("countryName"),
+        countryRegion: document.getElementById("countryRegion"),
+
+        // End Game DOM
+        endIcon: document.getElementById("endIcon"),
+        endTitle: document.getElementById("endTitle"),
+        endSubtitle: document.getElementById("endSubtitle"),
+        endLevelStat: document.getElementById("endLevelStat"),
+        endMatchesStat: document.getElementById("endMatchesStat")
+      };
+
+      /* =========================================================================
+         7. UI & SCREEN NAVIGATION HELPERS
+      ========================================================================= */
+      let toastTimeout = null;
+      function showToast(msg, type = "info") {
+        clearTimeout(toastTimeout);
+        el.toastInner.textContent = msg;
+        el.toastInner.className = "px-5 py-2.5 rounded-2xl font-bold text-sm sm:text-base shadow-2xl border backdrop-blur-md text-center ";
+        if (type === "success") {
+          el.toastInner.className += "bg-emerald-950/90 border-emerald-400 text-emerald-200";
+        } else if (type === "error") {
+          el.toastInner.className += "bg-rose-950/95 border-rose-400 text-rose-200";
+        } else {
+          el.toastInner.className += "bg-purple-950/95 border-pink-400 text-pink-100";
+        }
+
+        el.toastBanner.classList.remove("opacity-0", "-translate-y-2");
+        el.toastBanner.classList.add("opacity-100", "translate-y-0");
+
+        toastTimeout = setTimeout(() => {
+          el.toastBanner.classList.remove("opacity-100", "translate-y-0");
+          el.toastBanner.classList.add("opacity-0", "-translate-y-2");
+        }, 1900);
+      }
+
+      function stopAllLoops() {
+        if (state.s1AnimFrame) {
+          cancelAnimationFrame(state.s1AnimFrame);
+          state.s1AnimFrame = null;
+        }
+        if (state.s2AnimFrame) {
+          cancelAnimationFrame(state.s2AnimFrame);
+          state.s2AnimFrame = null;
+        }
+      }
+
+      function switchScreen(screenName) {
+        stopAllLoops();
+        state.mode = screenName;
+
+        const screens = [
+          el.screenMenu,
+          el.screenStage1,
+          el.screenLevelClear,
+          el.screenGrandCongrats,
+          el.screenStage2Review,
+          el.screenStage2Quiz,
+          el.screenEndGame
+        ];
+        screens.forEach((s) => s.classList.add("hidden"));
+
+        if (screenName === "MENU") {
+          el.screenMenu.classList.remove("hidden");
+          el.stageBadgeText.textContent = "Main Menu";
+        } else if (screenName === "STAGE1") {
+          el.screenStage1.classList.remove("hidden");
+          el.stageBadgeText.textContent = `Stage 1 • Lv ${state.currentLevel}/100`;
+          resizePotionCanvas();
+        } else if (screenName === "LEVEL_CLEAR") {
+          el.screenLevelClear.classList.remove("hidden");
+          el.stageBadgeText.textContent = `Level ${state.currentLevel} Cleared!`;
+        } else if (screenName === "GRAND_CONGRATS") {
+          el.screenGrandCongrats.classList.remove("hidden");
+          el.stageBadgeText.textContent = "Level 100 Champion!";
+        } else if (screenName === "STAGE2_REVIEW") {
+          el.screenStage2Review.classList.remove("hidden");
+          el.stageBadgeText.textContent = "Stage 2 • Review";
+        } else if (screenName === "STAGE2_QUIZ") {
+          el.screenStage2Quiz.classList.remove("hidden");
+          el.stageBadgeText.textContent = "Stage 2 • Blitz";
+        } else if (screenName === "END") {
+          el.screenEndGame.classList.remove("hidden");
+          el.stageBadgeText.textContent = "Results";
+        }
+        updateHud();
+      }
+
+      function updateHud() {
+        el.livesText.textContent = Math.max(0, state.lives);
+        el.partnersCountText.textContent = state.totalConsensualMatches.toLocaleString();
+      }
+
+      /* =========================================================================
+         8. 2D POTION BOTTLE CANVAS RENDERER (Animated Liquid, Bubbles & Glow)
+      ========================================================================= */
+      const bubbles = Array.from({ length: 18 }, () => ({
+        x: (Math.random() - 0.5) * 70,
+        y: Math.random() * 80,
+        r: 2 + Math.random() * 4.5,
+        speed: 0.4 + Math.random() * 0.9
+      }));
+
+      let liquidFillVisual = 0;
+      let liquidColorVisual = "#ff2a85";
+      let wavePhase = 0;
+
+      function resizePotionCanvas() {
+        const canvas = el.potionCanvas;
+        if (!canvas) return;
+        const rect = canvas.getBoundingClientRect();
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = Math.max(200, Math.floor(rect.width * dpr));
+        canvas.height = Math.max(180, Math.floor(rect.height * dpr));
+      }
+
+      function drawPotionBottle() {
+        const canvas = el.potionCanvas;
+        if (!canvas) return;
+        const ctx = canvas.getContext("2d");
+        const w = canvas.width;
+        const h = canvas.height;
+        ctx.clearRect(0, 0, w, h);
+
+        const cx = w / 2;
+        const cy = h * 0.56;
+        const radius = Math.min(w, h) * 0.31;
+
+        // Target fill percentage based on formula progress
+        const totalSteps = Math.max(1, state.requiredFormula.length);
+        const targetFill = state.currentStepIndex / totalSteps;
+        liquidFillVisual += (targetFill - liquidFillVisual) * 0.14;
+        wavePhase += 0.08;
+
+        // Determine active liquid color from last added ingredient
+        if (state.currentStepIndex > 0) {
+          const lastIng = state.requiredFormula[state.currentStepIndex - 1];
+          if (lastIng) liquidColorVisual = lastIng.color;
+        } else {
+          liquidColorVisual = "#9d4edd";
+        }
+
+        ctx.save();
+
+        // Outer Mystical Aura Glow
+        const aura = ctx.createRadialGradient(cx, cy, radius * 0.2, cx, cy, radius * 1.45);
+        aura.addColorStop(0, liquidColorVisual + "55");
+        aura.addColorStop(1, "rgba(0,0,0,0)");
+        ctx.fillStyle = aura;
+        ctx.beginPath();
+        ctx.arc(cx, cy, radius * 1.45, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Bottle Neck & Cork
+        const neckW = radius * 0.48;
+        const neckH = radius * 0.52;
+        const neckTop = cy - radius - neckH * 0.78;
+
+        // Cork
+        ctx.fillStyle = "#d4a373";
+        ctx.beginPath();
+        ctx.roundRect(cx - neckW * 0.38, neckTop - neckH * 0.34, neckW * 0.76, neckH * 0.42, 4);
+        ctx.fill();
+
+        // Clip inside the round flask body to draw liquid & bubbles
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(cx, cy, radius - 3, 0, Math.PI * 2);
+        ctx.clip();
+
+        // Liquid fill level
+        if (liquidFillVisual > 0.01) {
+          const liquidTopY = cy + radius - liquidFillVisual * (radius * 2);
+          ctx.fillStyle = liquidColorVisual;
+          ctx.beginPath();
+          ctx.moveTo(cx - radius, cy + radius);
+          for (let x = -radius; x <= radius; x += 6) {
+            const waveY = Math.sin(x * 0.06 + wavePhase) * 4;
+            ctx.lineTo(cx + x, liquidTopY + waveY);
+          }
+          ctx.lineTo(cx + radius, cy + radius);
+          ctx.closePath();
+          ctx.fill();
+
+          // Rising glowing bubbles inside liquid
+          ctx.fillStyle = "rgba(255, 255, 255, 0.55)";
+          bubbles.forEach((b) => {
+            b.y -= b.speed;
+            if (b.y < -radius + 10) {
+              b.y = radius - 6;
+              b.x = (Math.random() - 0.5) * (radius * 1.3);
+            }
+            const bx = cx + b.x;
+            const by = cy + b.y;
+            if (by > liquidTopY + 3) {
+              ctx.beginPath();
+              ctx.arc(bx, by, b.r, 0, Math.PI * 2);
+              ctx.fill();
+            }
+          });
+        }
+        ctx.restore();
+
+        // Glass Flask Outline (Neck + Round Bulb)
+        ctx.strokeStyle = "rgba(255, 255, 255, 0.8)";
+        ctx.lineWidth = 3;
+
+        // Neck glass
+        ctx.fillStyle = "rgba(255, 255, 255, 0.08)";
+        ctx.beginPath();
+        ctx.roundRect(cx - neckW / 2, neckTop, neckW, neckH, 4);
+        ctx.fill();
+        ctx.stroke();
+
+        // Lip rim
+        ctx.beginPath();
+        ctx.roundRect(cx - neckW * 0.62, neckTop - 3, neckW * 1.24, 7, 4);
+        ctx.fill();
+        ctx.stroke();
+
+        // Round bulb glass
+        ctx.beginPath();
+        ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+        ctx.stroke();
+
+        // Specular Glass Highlight Curve
+        ctx.strokeStyle = "rgba(255, 255, 255, 0.45)";
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.arc(cx, cy, radius * 0.78, Math.PI * 1.12, Math.PI * 1.48);
+        ctx.stroke();
+
+        // Center Heart Emblem on Bottle
+        ctx.font = `${Math.floor(radius * 0.46)}px sans-serif`;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText("💖", cx, cy + 4);
+
+        ctx.restore();
+      }
+
+      /* =========================================================================
+         9. STAGE 1 LOGIC (LEVELS 1 TO 100 CONSENSUAL POLYAMORY POTION BREWING)
+      ========================================================================= */
+      function renderIngredientButtons() {
+        el.ingredientsGrid.innerHTML = "";
+        INGREDIENTS.forEach((ing) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "ingredient-card rounded-2xl p-2.5 sm:p-3 flex flex-col items-center justify-center text-center cursor-pointer relative";
+          btn.innerHTML = `
+            <span class="absolute top-1.5 right-2 text-[10px] font-black text-purple-300/70 bg-purple-900/70 px-1.5 rounded">${ing.key}</span>
+            <span class="text-2xl sm:text-3xl mb-1">${ing.icon}</span>
+            <span class="text-xs font-extrabold text-white leading-tight">${ing.name}</span>
+          `;
+          btn.addEventListener("click", () => handleIngredientClick(ing));
+          el.ingredientsGrid.appendChild(btn);
+        });
+      }
+
+      function renderFormulaSlots() {
+        el.formulaSlots.innerHTML = "";
+        state.requiredFormula.forEach((ing, idx) => {
+          const isDone = idx < state.currentStepIndex;
+          const isCurrent = idx === state.currentStepIndex;
+
+          const slot = document.createElement("div");
+          let cls = "px-3 py-2 rounded-xl border text-xs sm:text-sm font-bold flex items-center gap-1.5 transition-all ";
+          if (isDone) {
+            cls += "bg-emerald-500/25 border-emerald-400 text-emerald-200 line-through opacity-75";
+          } else if (isCurrent) {
+            cls += "bg-pink-500/30 border-amber-300 text-white ring-2 ring-amber-300/60 scale-105 shadow-lg";
+          } else {
+            cls += "bg-slate-900/80 border-purple-500/30 text-purple-200/80";
+          }
+          slot.className = cls;
+          slot.innerHTML = `
+            <span class="text-[11px] opacity-75">${idx + 1}.</span>
+            <span>${ing.icon}</span>
+            <span>${ing.name}</span>
+          `;
+          el.formulaSlots.appendChild(slot);
+        });
+
+        el.bottleStatusPill.textContent = `${state.currentStepIndex} / ${state.requiredFormula.length} Sangkap`;
+      }
+
+      function generateFormulaForLevel(level) {
+        // Formula length scales cleanly from 3 to 5 ingredients so fast-paced rounds stay fun
+        let len = 3;
+        if (level >= 15 && level < 50) len = 4;
+        else if (level >= 50) len = 5;
+
+        const seq = [];
+        for (let i = 0; i < len; i++) {
+          const randomIng = INGREDIENTS[Math.floor(Math.random() * INGREDIENTS.length)];
+          seq.push(randomIng);
+        }
+        return seq;
+      }
+
+      function startStage1Game(startLevel = 1) {
+        ensureAudioCtx();
+        usedNamesSet.clear();
+        state.lives = 7;
+        state.totalConsensualMatches = 0;
+        state.currentLevel = Math.max(1, Math.min(100, startLevel));
+        beginLevel(state.currentLevel);
+      }
+
+      function beginLevel(levelNum) {
+        state.currentLevel = levelNum;
+        // Goal requirement: Level 1 = 1 single, Level 2 = 2 singles ... up to Level 100 = 100 singles!
+        state.targetsInLevelTotal = levelNum;
+        state.targetsCompletedInLevel = 0;
+        state.levelNewPartners = [];
+
+        switchScreen("STAGE1");
+        spawnNextTargetInLevel();
+        startStage1Loop();
+      }
+
+      function spawnNextTargetInLevel() {
+        const profile = generateUniqueFemaleProfile();
+        state.currentTargetProfile = profile;
+        state.requiredFormula = generateFormulaForLevel(state.currentLevel);
+        state.currentStepIndex = 0;
+        liquidFillVisual = 0;
+
+        // Timer per target: fast-paced seconds (scales slightly for higher levels)
+        const baseSeconds = state.currentLevel <= 10 ? 11.0 : state.currentLevel <= 40 ? 9.0 : 7.5;
+        state.s1TimeMax = baseSeconds;
+        state.s1TimeRemaining = baseSeconds;
+        state.s1LastTick = performance.now();
+
+        // Update Target UI
+        el.s1LevelBadge.textContent = `LEVEL ${state.currentLevel} / 100`;
+        el.s1TargetCounter.textContent = `Target #${state.targetsCompletedInLevel + 1} of ${state.targetsInLevelTotal}`;
+        const pct = Math.round((state.targetsCompletedInLevel / state.targetsInLevelTotal) * 100);
+        el.s1LevelProgressBar.style.width = `${Math.max(4, pct)}%`;
+
+        el.uniqueNameBadge.textContent = `Unique Name #${usedNamesSet.size}`;
+        el.targetAvatar.textContent = profile.avatar;
+        el.targetNameText.textContent = profile.name;
+        el.targetBioText.textContent = profile.bio;
+
+        el.targetCard.classList.remove("animate-pop");
+        void el.targetCard.offsetWidth;
+        el.targetCard.classList.add("animate-pop");
+
+        renderFormulaSlots();
+
+        // Announce first few targets per level via voice so it stays crisp and non-overlapping
+        if (state.targetsCompletedInLevel === 0) {
+          speakVoice(`Level ${state.currentLevel}. Brew love potion for ${profile.name}!`);
+        }
+      }
+
+      function handleIngredientClick(ingredient) {
+        if (state.mode !== "STAGE1") return;
+        ensureAudioCtx();
+
+        const expected = state.requiredFormula[state.currentStepIndex];
+        if (!expected) return;
+
+        if (ingredient.id === expected.id) {
+          // Correct ingredient!
+          SFX.dropIngredient(state.currentStepIndex);
+          state.currentStepIndex++;
+          renderFormulaSlots();
+
+          // Check if potion formula is complete
+          if (state.currentStepIndex >= state.requiredFormula.length) {
+            completeCurrentTargetPotion();
+          }
+        } else {
+          // Wrong ingredient penalty (-1 Life!)
+          penalizeStage1(`Mali ang sangkap! Dapat ${expected.icon} ${expected.name}! (-1 Life)`);
+        }
+      }
+
+      function completeCurrentTargetPotion() {
+        SFX.potionSuccess();
+        const partner = state.currentTargetProfile;
+        state.totalConsensualMatches++;
+        state.targetsCompletedInLevel++;
+        state.levelNewPartners.push(partner.name);
+
+        el.latestPartnerTicker.textContent = `${partner.avatar} ${partner.name} (Level ${state.currentLevel} • Consensual Match!)`;
+        updateHud();
+
+        // Check if all targets (1..N) in this level are completed
+        if (state.targetsCompletedInLevel >= state.targetsInLevelTotal) {
+          onLevelCompleted();
+        } else {
+          showToast(`💖 ${partner.name} matched! Next single!`, "success");
+          spawnNextTargetInLevel();
+        }
+      }
+
+      function penalizeStage1(reason) {
+        SFX.errorPenalty();
+        state.lives--;
+        updateHud();
+
+        el.bottleContainer.classList.remove("animate-shake");
+        void el.bottleContainer.offsetWidth;
+        el.bottleContainer.classList.add("animate-shake");
+
+        showToast(`⚠️ ${reason}`, "error");
+        speakVoice("Wrong or late! Minus one life!");
+
+        if (state.lives <= 0) {
+          triggerGameOver(
+            "NAUBOS ANG LIVES SA GAYUMA!",
+            `Umabot ka hanggang Level ${state.currentLevel} at nakabuo ng ${state.totalConsensualMatches} consensual polyamory relationships.`
+          );
+          return;
+        }
+
+        // Reset current bottle formula & refresh timer for retry
+        state.currentStepIndex = 0;
+        liquidFillVisual = 0;
+        state.s1TimeRemaining = state.s1TimeMax;
+        state.s1LastTick = performance.now();
+        renderFormulaSlots();
+      }
+
+      function onLevelCompleted() {
+        stopAllLoops();
+        SFX.levelComplete();
+
+        // Bonus +1 Life every 5 levels completed (up to maxLives)
+        let bonusMsg = "";
+        if (state.currentLevel % 5 === 0 && state.lives < state.maxLives) {
+          state.lives++;
+          updateHud();
+          bonusMsg = " (+1 Bonus Life!)";
+        }
+
+        // Check if Level 100 was just finished!
+        if (state.currentLevel >= 100) {
+          el.grandTotalPartners.textContent = state.totalConsensualMatches.toLocaleString();
+          speakVoice("Congratulations! You conquered all 100 levels of Daniela Love Potion for Siquijor!");
+          switchScreen("GRAND_CONGRATS");
+          return;
+        }
+
+        el.levelClearTitle.textContent = `LEVEL ${state.currentLevel} COMPLETE!${bonusMsg}`;
+        el.levelClearDesc.textContent = `Matagumpay mong nagayuma nang may full consent ang ${state.targetsInLevelTotal} unique single(s) sa Level ${state.currentLevel}!`;
+
+        el.levelClearNamesList.innerHTML = "";
+        state.levelNewPartners.forEach((name) => {
+          const pill = document.createElement("span");
+          pill.className = "px-2.5 py-1 rounded-lg bg-pink-500/20 border border-pink-400/40 text-pink-100 font-semibold";
+          pill.textContent = `💖 ${name}`;
+          el.levelClearNamesList.appendChild(pill);
+        });
+
+        el.nextLevelBtn.textContent = `Start Level ${state.currentLevel + 1} (${state.currentLevel + 1} Singles) ➔`;
+        speakVoice(`Level ${state.currentLevel} complete! Ready for Level ${state.currentLevel + 1}.`);
+        switchScreen("LEVEL_CLEAR");
+      }
+
+      function startStage1Loop() {
+        function loop(now) {
+          if (state.mode !== "STAGE1") return;
+          const dt = (now - state.s1LastTick) / 1000;
+          state.s1LastTick = now;
+
+          state.s1TimeRemaining -= dt;
+          if (state.s1TimeRemaining <= 0) {
+            state.s1TimeRemaining = 0;
+            updateStage1TimerUI();
+            penalizeStage1("Naubos ang oras (Late)! (-1 Life)");
+          } else {
+            updateStage1TimerUI();
+          }
+
+          drawPotionBottle();
+          state.s1AnimFrame = requestAnimationFrame(loop);
+        }
+        state.s1LastTick = performance.now();
+        state.s1AnimFrame = requestAnimationFrame(loop);
+      }
+
+      function updateStage1TimerUI() {
+        el.s1TimerText.textContent = `${state.s1TimeRemaining.toFixed(1)}s`;
+        const pct = Math.max(0, Math.min(100, (state.s1TimeRemaining / state.s1TimeMax) * 100));
+        el.s1TimerBar.style.width = `${pct}%`;
+        if (pct < 30) {
+          el.s1TimerText.classList.remove("text-amber-300");
+          el.s1TimerText.classList.add("text-rose-400");
+        } else {
+          el.s1TimerText.classList.remove("text-rose-400");
+          el.s1TimerText.classList.add("text-amber-300");
+        }
+      }
+
+      /* =========================================================================
+         10. STAGE 2 LOGIC (COUNTRY REVIEW MUNA + TIMED POLYAMORY VS MONOGAMY BLITZ)
+      ========================================================================= */
+      function openStage2Review() {
+        ensureAudioCtx();
+        if (state.lives <= 0) {
+          state.lives = 7;
+        }
+        el.reviewPolyList.innerHTML = "";
+        el.reviewMonoList.innerHTML = "";
+
+        COUNTRIES_DATA.forEach((c) => {
+          const item = document.createElement("div");
+          if (c.isPoly) {
+            item.className = "p-2.5 rounded-xl bg-emerald-900/40 border border-emerald-400/30 flex items-start gap-2.5";
+            item.innerHTML = `
+              <span class="text-2xl leading-none">${c.flag}</span>
+              <div>
+                <div class="text-xs sm:text-sm font-extrabold text-white">${c.name} <span class="text-[11px] font-normal text-emerald-300">(${c.region})</span></div>
+                <div class="text-[11px] text-emerald-100/80">${c.note}</div>
+              </div>
+            `;
+            el.reviewPolyList.appendChild(item);
+          } else {
+            item.className = "p-2.5 rounded-xl bg-rose-900/40 border border-rose-400/30 flex items-start gap-2.5";
+            item.innerHTML = `
+              <span class="text-2xl leading-none">${c.flag}</span>
+              <div>
+                <div class="text-xs sm:text-sm font-extrabold text-white">${c.name} <span class="text-[11px] font-normal text-rose-300">(${c.region})</span></div>
+                <div class="text-[11px] text-rose-100/80">${c.note}</div>
+              </div>
+            `;
+            el.reviewMonoList.appendChild(item);
+          }
+        });
+
+        speakVoice("Review muna! Tandaan ang mga polyamory countries at iwasan ang monogamy countries.");
+        switchScreen("STAGE2_REVIEW");
+      }
+
+      function startStage2Blitz() {
+        ensureAudioCtx();
+        // Shuffle all 16 countries for the fast timed blitz
+        state.quizQueue = [...COUNTRIES_DATA].sort(() => Math.random() - 0.5);
+        state.quizIndex = 0;
+        switchScreen("STAGE2_QUIZ");
+        loadNextCountryRound();
+        startStage2Loop();
+      }
+
+      function loadNextCountryRound() {
+        if (state.quizIndex >= state.quizQueue.length) {
+          // Completed all countries! Grand Victory!
+          stopAllLoops();
+          SFX.levelComplete();
+          speakVoice("Grandmaster Victory! Na-master mo ang Siquijor Love Potion at Polyamory Countries!");
+          el.endIcon.textContent = "👑🏆🌍";
+          el.endTitle.textContent = "ULTIMATE SIQUIJOR GRANDMASTER!";
+          el.endSubtitle.textContent = "Perpekto! Napanalunan mo ang Daniela Love Potion at naiwasan ang Ex vs. Third Party drama sa Monogamy countries!";
+          el.endLevelStat.textContent = `Level ${state.currentLevel} + Country Blitz`;
+          el.endMatchesStat.textContent = state.totalConsensualMatches.toLocaleString();
+          switchScreen("END");
+          return;
+        }
+
+        const country = state.quizQueue[state.quizIndex];
+        state.currentCountry = country;
+        state.s2TimeMax = 5.5;
+        state.s2TimeRemaining = 5.5;
+        state.s2LastTick = performance.now();
+
+        el.s2RoundBadge.textContent = `COUNTRY ${state.quizIndex + 1} / ${state.quizQueue.length}`;
+        el.countryFlag.textContent = country.flag;
+        el.countryName.textContent = country.name;
+        el.countryRegion.textContent = country.region;
+
+        el.countryCard.classList.remove("animate-pop");
+        void el.countryCard.offsetWidth;
+        el.countryCard.classList.add("animate-pop");
+
+        speakVoice(country.name);
+      }
+
+      function submitCountryAnswer(playerChosePoly) {
+        if (state.mode !== "STAGE2_QUIZ" || !state.currentCountry) return;
+        ensureAudioCtx();
+
+        const actualPoly = state.currentCountry.isPoly;
+
+        if (playerChosePoly === actualPoly) {
+          SFX.potionSuccess();
+          if (actualPoly) {
+            state.totalConsensualMatches += 5;
+            updateHud();
+            showToast(`✅ Tama! Polyamory allowed sa ${state.currentCountry.name}! (+5 Matches)`, "success");
+          } else {
+            showToast(`🛡️ Tama! Monogamy sa ${state.currentCountry.name} — iwas Ex vs. Third Party!`, "success");
+          }
+          state.quizIndex++;
+          loadNextCountryRound();
+        } else {
+          // Wrong answer!
+          const msg = playerChosePoly
+            ? `🚫 MALI! Monogamy only ang ${state.currentCountry.name}! Nagkaroon ng Ex vs. Third Party drama! (-1 Life)`
+            : `⚠️ MALI! Polyamory-friendly ang ${state.currentCountry.name}! Sayang ang chance! (-1 Life)`;
+          penalizeStage2(msg);
+        }
+      }
+
+      function penalizeStage2(reason) {
+        SFX.errorPenalty();
+        state.lives--;
+        updateHud();
+
+        el.countryCard.classList.remove("animate-shake");
+        void el.countryCard.offsetWidth;
+        el.countryCard.classList.add("animate-shake");
+
+        showToast(reason, "error");
+        speakVoice("Ex versus third party alert! Minus one life!");
+
+        if (state.lives <= 0) {
+          triggerGameOver(
+            "EX VS. THIRD PARTY GAME OVER!",
+            "Nagayuma mo ang monogamy country o naubusan ng segundo! Mag-review ulit at subukan muli."
+          );
+          return;
+        }
+
+        state.quizIndex++;
+        loadNextCountryRound();
+      }
+
+      function startStage2Loop() {
+        function loop(now) {
+          if (state.mode !== "STAGE2_QUIZ") return;
+          const dt = (now - state.s2LastTick) / 1000;
+          state.s2LastTick = now;
+
+          state.s2TimeRemaining -= dt;
+          if (state.s2TimeRemaining <= 0) {
+            state.s2TimeRemaining = 0;
+            updateStage2TimerUI();
+            penalizeStage2(`⏰ Late ka sa ${state.currentCountry.name}! (-1 Life)`);
+          } else {
+            updateStage2TimerUI();
+          }
+
+          state.s2AnimFrame = requestAnimationFrame(loop);
+        }
+        state.s2LastTick = performance.now();
+        state.s2AnimFrame = requestAnimationFrame(loop);
+      }
+
+      function updateStage2TimerUI() {
+        el.s2TimerText.textContent = `${state.s2TimeRemaining.toFixed(1)}s`;
+        const pct = Math.max(0, Math.min(100, (state.s2TimeRemaining / state.s2TimeMax) * 100));
+        el.s2TimerBar.style.width = `${pct}%`;
+      }
+
+      function triggerGameOver(title, subtitle) {
+        stopAllLoops();
+        el.endIcon.textContent = "💔🧪";
+        el.endTitle.textContent = title;
+        el.endSubtitle.textContent = subtitle;
+        el.endLevelStat.textContent = `Level ${state.currentLevel} / 100`;
+        el.endMatchesStat.textContent = state.totalConsensualMatches.toLocaleString();
+        switchScreen("END");
+      }
+
+      /* =========================================================================
+         11. EVENT LISTENERS & KEYBOARD CONTROLS
+      ========================================================================= */
+      document.getElementById("startStage1Btn").addEventListener("click", () => startStage1Game(1));
+      document.getElementById("jumpStage2Btn").addEventListener("click", () => openStage2Review());
+
+      document.getElementById("quickLevelGoBtn").addEventListener("click", () => {
+        const val = parseInt(document.getElementById("quickLevelInput").value, 10) || 1;
+        startStage1Game(val);
+      });
+
+      el.nextLevelBtn.addEventListener("click", () => {
+        beginLevel(state.currentLevel + 1);
+      });
+
+      document.getElementById("goToStage2FromCongratsBtn").addEventListener("click", () => openStage2Review());
+      document.getElementById("startCountryBlitzBtn").addEventListener("click", () => startStage2Blitz());
+
+      document.getElementById("btnCastPoly").addEventListener("click", () => submitCountryAnswer(true));
+      document.getElementById("btnRejectMono").addEventListener("click", () => submitCountryAnswer(false));
+
+      document.getElementById("retryGameBtn").addEventListener("click", () => startStage1Game(1));
+      document.getElementById("endReviewBtn").addEventListener("click", () => openStage2Review());
+
+      el.homeBtn.addEventListener("click", () => switchScreen("MENU"));
+
+      el.toggleAudioBtn.addEventListener("click", () => {
+        soundEnabled = !soundEnabled;
+        el.toggleAudioBtn.textContent = soundEnabled ? "🔊" : "🔇";
+        if (!soundEnabled && "speechSynthesis" in window) {
+          window.speechSynthesis.cancel();
+        }
+        showToast(soundEnabled ? "Sound & Voice Enabled" : "Sound & Voice Muted", "info");
+      });
+
+      // Keyboard shortcuts (1-8 for ingredients, Left/Right arrows for Country Blitz)
+      window.addEventListener("keydown", (e) => {
+        if (state.mode === "STAGE1") {
+          const num = parseInt(e.key, 10);
+          if (num >= 1 && num <= 8) {
+            const ing = INGREDIENTS[num - 1];
+            if (ing) handleIngredientClick(ing);
+          }
+        } else if (state.mode === "STAGE2_QUIZ") {
+          if (e.key === "ArrowLeft") {
+            e.preventDefault();
+            submitCountryAnswer(true);
+          } else if (e.key === "ArrowRight") {
+            e.preventDefault();
+            submitCountryAnswer(false);
+          }
+        }
+      });
+
+      window.addEventListener("resize", () => {
+        if (state.mode === "STAGE1") {
+          resizePotionCanvas();
+        }
+      });
+
+      // Initialize UI on load
+      window.addEventListener("load", () => {
+        renderIngredientButtons();
+        switchScreen("MENU");
+      });
+    })();
+  </script>
+</body>
+</html>
